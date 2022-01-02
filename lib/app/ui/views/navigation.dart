@@ -23,6 +23,7 @@ class Navigation extends StatelessWidget {
       create: (context) => BottomNavBloc(),
       child: Scaffold(
         appBar: AppBar(
+          centerTitle: true,
           backgroundColor: Colors.transparent,
           elevation: 0,
           automaticallyImplyLeading: false,
