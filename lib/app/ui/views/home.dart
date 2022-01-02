@@ -29,34 +29,6 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Icon(Icons.menu),
         ),
       ),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: () {
-            print('Hamburger');
-          },
-          child: Image.asset(
-            'assets/hamburger.png',
-          ),
-        ),
-        title: Image.asset(
-          'assets/logo.png',
-          scale: 4.7,
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              print('Profile');
-            },
-            child: Image.asset(
-              'assets/profile.png',
-              scale: 3.6,
-            ),
-          )
-        ],
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: EdgeInsets.all(14),

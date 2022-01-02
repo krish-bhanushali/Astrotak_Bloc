@@ -57,332 +57,299 @@ class _TalkScreenState extends State<TalkScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        automaticallyImplyLeading: false,
-        leading: GestureDetector(
-          onTap: () {
-            print('Hamburger');
-          },
-          child: Image.asset(
-            'assets/hamburger.png',
-          ),
-        ),
-        title: Image.asset(
-          'assets/logo.png',
-          scale: 4.7,
-        ),
-        actions: [
-          GestureDetector(
-            onTap: () {
-              print('Profile');
-            },
-            child: Image.asset(
-              'assets/profile.png',
-              scale: 3.6,
-            ),
-          )
-        ],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  'Talk to an Astrolger',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                  ),
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Talk to an Astrolger',
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
                 ),
-                Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () async {
-                        // searchController.closeSearch();
-                        // print(searchController.searchClicked);
+              ),
+              Row(
+                children: [
+                  GestureDetector(
+                    onTap: () async {
+                      // searchController.closeSearch();
+                      // print(searchController.searchClicked);
 
-                        context.read<AstrologerblocBloc>().add(SearchEvent(''));
-                        print('Search');
-                      },
-                      child: Image.asset(
-                        'assets/search.png',
-                        scale: 2.3,
-                      ),
+                      context.read<AstrologerblocBloc>().add(SearchEvent(''));
+                      print('Search');
+                    },
+                    child: Image.asset(
+                      'assets/search.png',
+                      scale: 2.3,
                     ),
-                    SizedBox(width: 12),
-                    GestureDetector(
-                      onTap: () {
-                        _toggleFilter();
-                      },
-                      child: Image.asset(
-                        'assets/filter.png',
-                        scale: 2.3,
-                      ),
+                  ),
+                  SizedBox(width: 12),
+                  GestureDetector(
+                    onTap: () {
+                      _toggleFilter();
+                    },
+                    child: Image.asset(
+                      'assets/filter.png',
+                      scale: 2.3,
                     ),
-                    OverlayContainer(
-                      show: _filterDropdown,
-                      // Let's position this overlay to the right of the button.
-                      position: OverlayContainerPosition(
-                        // Left position.
-                        -320,
-                        // Bottom position.
-                        -10,
-                      ),
-                      // The content inside the overlay.
-                      child: Container(
-                        width: 350.0,
-                        child: BlocBuilder<AstrologerblocBloc,
-                            AstrologerblocState>(
-                          builder: (context, state) {
-                            if (state is AstrologerBlocFilter) {
-                              return FilterWidget(
-                                hindi:
-                                    langFilter.contains('hindi') ? true : false,
-                                onTapHindi: () {
-                                  langFilterToggle('hindi');
-                                },
-                                english: langFilter.contains('english')
-                                    ? true
-                                    : false,
-                                onTapEnglish: () {
-                                  langFilterToggle('english');
-                                },
-                                onTapastrology: () {
-                                  skillFilterToggle('astrology');
-                                },
-                                onTapvastu: () {
-                                  skillFilterToggle('vastu');
-                                },
-                                astrology: skillFilter.contains('astrology')
-                                    ? true
-                                    : false,
-                                vastu: skillFilter.contains('vastu')
-                                    ? true
-                                    : false,
-                              );
-                            }
+                  ),
+                  OverlayContainer(
+                    show: _filterDropdown,
+                    // Let's position this overlay to the right of the button.
+                    position: OverlayContainerPosition(
+                      // Left position.
+                      -320,
+                      // Bottom position.
+                      -10,
+                    ),
+                    // The content inside the overlay.
+                    child: Container(
+                      width: 350.0,
+                      child:
+                          BlocBuilder<AstrologerblocBloc, AstrologerblocState>(
+                        builder: (context, state) {
+                          if (state is AstrologerBlocFilter) {
                             return FilterWidget(
-                                hindi:
-                                    langFilter.contains('hindi') ? true : false,
-                                onTapHindi: () {
-                                  langFilterToggle('hindi');
-                                },
-                                english: langFilter.contains('english')
-                                    ? true
-                                    : false,
-                                onTapEnglish: () {
-                                  langFilterToggle('english');
-                                },
-                                onTapastrology: () {
-                                  skillFilterToggle('astrology');
-                                },
-                                onTapvastu: () {
-                                  skillFilterToggle('vastu');
-                                },
-                                astrology: skillFilter.contains('astrology')
-                                    ? true
-                                    : false,
-                                vastu: skillFilter.contains('vastu')
-                                    ? true
-                                    : false,
-                                applyFilters: () {
-                                  context.read<AstrologerblocBloc>().add(
-                                      FilterEvent(langFilter, skillFilter));
-                                });
-                          },
-                        ),
+                              hindi:
+                                  langFilter.contains('hindi') ? true : false,
+                              onTapHindi: () {
+                                langFilterToggle('hindi');
+                              },
+                              english:
+                                  langFilter.contains('english') ? true : false,
+                              onTapEnglish: () {
+                                langFilterToggle('english');
+                              },
+                              onTapastrology: () {
+                                skillFilterToggle('astrology');
+                              },
+                              onTapvastu: () {
+                                skillFilterToggle('vastu');
+                              },
+                              astrology: skillFilter.contains('astrology')
+                                  ? true
+                                  : false,
+                              vastu:
+                                  skillFilter.contains('vastu') ? true : false,
+                            );
+                          }
+                          return FilterWidget(
+                              hindi:
+                                  langFilter.contains('hindi') ? true : false,
+                              onTapHindi: () {
+                                langFilterToggle('hindi');
+                              },
+                              english:
+                                  langFilter.contains('english') ? true : false,
+                              onTapEnglish: () {
+                                langFilterToggle('english');
+                              },
+                              onTapastrology: () {
+                                skillFilterToggle('astrology');
+                              },
+                              onTapvastu: () {
+                                skillFilterToggle('vastu');
+                              },
+                              astrology: skillFilter.contains('astrology')
+                                  ? true
+                                  : false,
+                              vastu:
+                                  skillFilter.contains('vastu') ? true : false,
+                              applyFilters: () {
+                                context
+                                    .read<AstrologerblocBloc>()
+                                    .add(FilterEvent(langFilter, skillFilter));
+                              });
+                        },
                       ),
                     ),
-                    SizedBox(width: 12),
-                    GestureDetector(
-                      onTap: () {
-                        print('Sort');
+                  ),
+                  SizedBox(width: 12),
+                  GestureDetector(
+                    onTap: () {
+                      print('Sort');
 
-                        _toggleDropdown();
-                      },
-                      child: Image.asset(
-                        'assets/sort.png',
-                        scale: 2.3,
+                      _toggleDropdown();
+                    },
+                    child: Image.asset(
+                      'assets/sort.png',
+                      scale: 2.3,
+                    ),
+                  ),
+                  OverlayContainer(
+                    show: _dropdownShown,
+                    // Let's position this overlay to the right of the button.
+                    position: OverlayContainerPosition(
+                      // Left position.
+                      -320,
+                      // Bottom position.
+                      -10,
+                    ),
+                    // The content inside the overlay.
+                    child: Container(
+                      width: 350.0,
+                      child:
+                          BlocBuilder<AstrologerblocBloc, AstrologerblocState>(
+                        builder: (context, state) {
+                          if (state is AstrologerblocSorted) {
+                            return SortingWidget(
+                              isEhightoLow:
+                                  state.sort == sortType.experienceHightoLow
+                                      ? true
+                                      : false,
+                              isElowtoHigh:
+                                  state.sort == sortType.experienceLowtoHigh
+                                      ? true
+                                      : false,
+                              isPhightoLow:
+                                  state.sort == sortType.priceHighToLow
+                                      ? true
+                                      : false,
+                              isPlowtoHigh:
+                                  state.sort == sortType.priceLowToHigh
+                                      ? true
+                                      : false,
+                            );
+                          }
+                          return SortingWidget();
+                        },
                       ),
                     ),
-                    OverlayContainer(
-                      show: _dropdownShown,
-                      // Let's position this overlay to the right of the button.
-                      position: OverlayContainerPosition(
-                        // Left position.
-                        -320,
-                        // Bottom position.
-                        -10,
-                      ),
-                      // The content inside the overlay.
-                      child: Container(
-                        width: 350.0,
-                        child: BlocBuilder<AstrologerblocBloc,
-                            AstrologerblocState>(
-                          builder: (context, state) {
-                            if (state is AstrologerblocSorted) {
-                              return SortingWidget(
-                                isEhightoLow:
-                                    state.sort == sortType.experienceHightoLow
-                                        ? true
-                                        : false,
-                                isElowtoHigh:
-                                    state.sort == sortType.experienceLowtoHigh
-                                        ? true
-                                        : false,
-                                isPhightoLow:
-                                    state.sort == sortType.priceHighToLow
-                                        ? true
-                                        : false,
-                                isPlowtoHigh:
-                                    state.sort == sortType.priceLowToHigh
-                                        ? true
-                                        : false,
-                              );
-                            }
-                            return SortingWidget();
-                          },
-                        ),
-                      ),
-                    ),
-                  ],
-                )
-              ],
-            ),
-            BlocBuilder<AstrologerblocBloc, AstrologerblocState>(
-              builder: (context, state) {
-                if (state is AstrologerblocSearchStarted) {
-                  return Container(
-                    margin: EdgeInsets.only(top: 12),
-                    height: 46,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[100],
-                      borderRadius: BorderRadius.circular(4),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.2),
-                          blurRadius: 1,
-                          offset: Offset(0, 0.4),
-                          spreadRadius: 0.2,
-                        )
-                      ],
-                    ),
-                    child: TextField(
-                      onChanged: (value) {
-                        context
-                            .read<AstrologerblocBloc>()
-                            .add(SearchEvent(value));
-                      },
-                      controller: searchEditingController,
-                      decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            searchEditingController.clear();
-                            print('Close search');
-                            context
-                                .read<AstrologerblocBloc>()
-                                .add(SearchCompeteEvent());
-                          },
-                          icon: Icon(
-                            Icons.close,
-                            color: AppColors.primaryColor,
-                          ),
-                        ),
-                        hintText: 'Search Astrologer',
-                        hintStyle: TextStyle(fontSize: 14),
+                  ),
+                ],
+              )
+            ],
+          ),
+          BlocBuilder<AstrologerblocBloc, AstrologerblocState>(
+            builder: (context, state) {
+              if (state is AstrologerblocSearchStarted) {
+                return Container(
+                  margin: EdgeInsets.only(top: 12),
+                  height: 46,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[100],
+                    borderRadius: BorderRadius.circular(4),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.2),
+                        blurRadius: 1,
+                        offset: Offset(0, 0.4),
+                        spreadRadius: 0.2,
+                      )
+                    ],
+                  ),
+                  child: TextField(
+                    onChanged: (value) {
+                      context
+                          .read<AstrologerblocBloc>()
+                          .add(SearchEvent(value));
+                    },
+                    controller: searchEditingController,
+                    decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          searchEditingController.clear();
+                          print('Close search');
+                          context
+                              .read<AstrologerblocBloc>()
+                              .add(SearchCompeteEvent());
+                        },
                         icon: Icon(
-                          Icons.search_outlined,
+                          Icons.close,
                           color: AppColors.primaryColor,
                         ),
-                        border: InputBorder.none,
                       ),
+                      hintText: 'Search Astrologer',
+                      hintStyle: TextStyle(fontSize: 14),
+                      icon: Icon(
+                        Icons.search_outlined,
+                        color: AppColors.primaryColor,
+                      ),
+                      border: InputBorder.none,
                     ),
-                  );
-                }
-
-                return Container();
-              },
-            ),
-            Expanded(
-              child: BlocBuilder<AstrologerblocBloc, AstrologerblocState>(
-                  builder: (context, state) {
-                if (state is AstrologerblocEmpty) {
-                  context.read<AstrologerblocBloc>().add(FetchEvent());
-                }
-                if (state is AstrologerblocError) {
-                  return Center(
-                    child: Text('failed to fetch quote'),
-                  );
-                }
-                if (state is AstrologerblocLoaded) {
-                  return ListView.separated(
-                    itemCount: state.astroglogers.length,
-                    itemBuilder: (context, index) {
-                      return AstrologerTile(
-                        astrologer: state.astroglogers[index],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider();
-                    },
-                  );
-                }
-                if (state is AstrologerblocSearchStarted) {
-                  print(state.searchResults.length);
-                  return ListView.separated(
-                    itemCount: state.searchResults.length,
-                    itemBuilder: (context, index) {
-                      return AstrologerTile(
-                        astrologer: state.searchResults[index],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider();
-                    },
-                  );
-                }
-                if (state is AstrologerblocSorted) {
-                  print(state.sortedLogers.length);
-                  return ListView.separated(
-                    itemCount: state.sortedLogers.length,
-                    itemBuilder: (context, index) {
-                      return AstrologerTile(
-                        astrologer: state.sortedLogers[index],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider();
-                    },
-                  );
-                }
-                if (state is AstrologerBlocFilter) {
-                  print(state.filteredLogers.length);
-                  return ListView.separated(
-                    itemCount: state.filteredLogers.length,
-                    itemBuilder: (context, index) {
-                      return AstrologerTile(
-                        astrologer: state.filteredLogers[index],
-                      );
-                    },
-                    separatorBuilder: (BuildContext context, int index) {
-                      return Divider();
-                    },
-                  );
-                }
-
-                return Center(
-                  child: CircularProgressIndicator(),
+                  ),
                 );
-              }),
-            ),
-          ],
-        ),
+              }
+
+              return Container();
+            },
+          ),
+          Expanded(
+            child: BlocBuilder<AstrologerblocBloc, AstrologerblocState>(
+                builder: (context, state) {
+              if (state is AstrologerblocEmpty) {
+                context.read<AstrologerblocBloc>().add(FetchEvent());
+              }
+              if (state is AstrologerblocError) {
+                return Center(
+                  child: Text('failed to fetch quote'),
+                );
+              }
+              if (state is AstrologerblocLoaded) {
+                return ListView.separated(
+                  itemCount: state.astroglogers.length,
+                  itemBuilder: (context, index) {
+                    return AstrologerTile(
+                      astrologer: state.astroglogers[index],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
+                  },
+                );
+              }
+              if (state is AstrologerblocSearchStarted) {
+                print(state.searchResults.length);
+                return ListView.separated(
+                  itemCount: state.searchResults.length,
+                  itemBuilder: (context, index) {
+                    return AstrologerTile(
+                      astrologer: state.searchResults[index],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
+                  },
+                );
+              }
+              if (state is AstrologerblocSorted) {
+                print(state.sortedLogers.length);
+                return ListView.separated(
+                  itemCount: state.sortedLogers.length,
+                  itemBuilder: (context, index) {
+                    return AstrologerTile(
+                      astrologer: state.sortedLogers[index],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
+                  },
+                );
+              }
+              if (state is AstrologerBlocFilter) {
+                print(state.filteredLogers.length);
+                return ListView.separated(
+                  itemCount: state.filteredLogers.length,
+                  itemBuilder: (context, index) {
+                    return AstrologerTile(
+                      astrologer: state.filteredLogers[index],
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return Divider();
+                  },
+                );
+              }
+
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }),
+          ),
+        ],
       ),
     );
   }
