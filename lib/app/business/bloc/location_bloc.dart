@@ -8,6 +8,8 @@ import 'package:equatable/equatable.dart';
 part 'location_event.dart';
 part 'location_state.dart';
 
+///[LocationBloc] It is a brain for home screen
+///fetches panchang for date and location
 class LocationBloc extends Bloc<LocationEvent, LocationState> {
   final ApiRepository apiRepository;
   List<Location>? locations = [];
@@ -18,6 +20,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
     on<LocationEvent>((event, emit) async {
       // TODO: implement event handler
 
+      ///Search location Event is triggered when user types in the location
+      ///auto complete results are returned in the custom overlay
       if (event is SearchLocationEvent) {
         try {
           if (event.query.isNotEmpty) {
@@ -39,11 +43,17 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           //add message later
           //  emit(AstrologerblocError());
         }
-      } else if (event is SelectedLocationEvent) {
+      }
+
+      ///When user taps on the list of locations
+      else if (event is SelectedLocationEvent) {
         print('got here');
         selectedLocation = event.location;
         emit(LocationSelected(location: event.location));
-      } else if (event is FetchPanchang) {
+      }
+
+      ///When fetching of Panchang starts
+      else if (event is FetchPanchang) {
         try {
           final CustomResponse response = await apiRepository.getPanchang(
               event.placeId!,

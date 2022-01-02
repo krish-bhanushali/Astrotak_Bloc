@@ -7,6 +7,8 @@ import 'package:equatable/equatable.dart';
 part 'astrologerbloc_event.dart';
 part 'astrologerbloc_state.dart';
 
+///[AstrologerblocBloc] It is a brain for our talk to screen
+///performs all types of logics on events
 class AstrologerblocBloc
     extends Bloc<AstrologerblocEvent, AstrologerblocState> {
   final ApiRepository apiRepository;
@@ -19,7 +21,7 @@ class AstrologerblocBloc
   AstrologerblocBloc({required this.apiRepository})
       : super(AstrologerblocEmpty()) {
     on<AstrologerblocEvent>((event, emit) async {
-      // TODO: implement event handler
+      ///Fetch Event On Screen Creation
       if (event is FetchEvent) {
         emit(AstrologerblocLoading());
         try {
@@ -37,14 +39,20 @@ class AstrologerblocBloc
           //add message later
           emit(AstrologerblocError());
         }
-      } else if (event is SearchEvent) {
+      }
+
+      ///Search Event when Search Icon is clicked and user types
+      else if (event is SearchEvent) {
         if (event.query.isEmpty) {
           emit(AstrologerblocSearchStarted(searchResults: astrologers!));
         }
 
+        ///filtering astrologers
         filteredAstrologers = astrologers!.where((astrologer) {
           bool isSkill = false;
           bool isLanguage = false;
+
+          ///searching by typing of skills
           astrologer.skills.forEach((element) {
             if (element.name
                 .toLowerCase()
@@ -53,6 +61,7 @@ class AstrologerblocBloc
             }
           });
 
+          ///searching by typing of languages
           astrologer.languages.forEach((element) {
             if (element.name
                 .toLowerCase()
@@ -61,6 +70,7 @@ class AstrologerblocBloc
             }
           });
 
+          //searching by name
           if ((astrologer.firstName.toLowerCase() +
                       " " +
                       astrologer.lastName.toLowerCase())
@@ -74,13 +84,20 @@ class AstrologerblocBloc
         }).toList();
 
         emit(AstrologerblocSearchStarted(searchResults: filteredAstrologers!));
-      } else if (event is SearchCompeteEvent) {
+      }
+
+      ///To load astrologers and hide the searchbar
+      else if (event is SearchCompeteEvent) {
         emit(AstrologerblocSearchEnded());
         emit(AstrologerblocLoaded(astroglogers: astrologers!));
-      } else if (event is SortEvent) {
+      }
+
+      ///When we click on sort overlay buttons
+      else if (event is SortEvent) {
         print('here');
         sortedAstrologers = astrologers;
 
+        ///takes on sorting type and sorts the list according to it
         switch (event.sorting) {
           case sortType.experienceLowtoHigh:
             sortedAstrologers!
@@ -104,30 +121,46 @@ class AstrologerblocBloc
         }
         emit(AstrologerblocSorted(
             sortedLogers: sortedAstrologers!, sort: event.sorting!));
-      } else if (event is FilterEvent) {
+      }
+
+      ///Filters the data from given filters
+      ///ASSUMPTIONS ARE MADE AS API DOESNT PROVIDE THE LIST OF FILTERS STATIC FILTERS
+      ///ARE ASSUMED
+
+      else if (event is FilterEvent) {
+        print('filter trigger');
         applyFilteredAstrologers = astrologers!.where((astrologer) {
           bool isLanguage = false;
           bool isSkill = false;
 
+          ///Check for language filter
           if (event.languageFilter!.isNotEmpty) {
             astrologer.languages.forEach((element) {
               event.languageFilter!.forEach((filter) {
-                if (element.name.toLowerCase().contains(filter)) {
+                if (element.name.toLowerCase().contains(filter.toLowerCase())) {
                   isLanguage = true;
+                  print('uyes');
                 }
               });
             });
+          } else {
+            isLanguage = true;
           }
+
+          /// check for skill filter
           if (event.skills!.isNotEmpty) {
             astrologer.skills.forEach((element) {
               event.skills!.forEach((filter) {
-                if (element.name.toLowerCase().contains(filter)) {
+                if (element.name.toLowerCase().contains(filter.toLowerCase())) {
                   isSkill = true;
+                  print('byes');
                 }
               });
             });
+          } else {
+            isSkill = true;
           }
-          if (isSkill || isLanguage) {
+          if (isSkill && isLanguage) {
             return true;
           } else {
             return false;
@@ -138,6 +171,4 @@ class AstrologerblocBloc
       }
     });
   }
-
-  //later implement other functions
 }

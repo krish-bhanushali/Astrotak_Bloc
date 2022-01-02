@@ -85,7 +85,7 @@ class FilterWidget extends StatelessWidget {
                 margin: EdgeInsets.symmetric(horizontal: 15.0, vertical: 5.0),
                 child: CustomFilterTile(
                     onTap: onTapvastu,
-                    text: 'Vastu',
+                    text: 'Falit Jyotish',
                     icon: vastu
                         ? Icon(
                             Icons.radio_button_checked,
@@ -110,15 +110,16 @@ class FilterWidget extends StatelessWidget {
             ],
           ),
         ),
-        GestureDetector(
-          onTap: applyFilters,
-          child: Container(
-            child: Center(
-              child: Text(
-                'Apply Filters',
-                style: TextStyle(fontSize: 18, color: AppColors.primaryColor),
-              ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: TextButton(
+            onPressed: applyFilters,
+            style: TextButton.styleFrom(
+              primary: Colors.white,
+              backgroundColor: AppColors.primaryColor,
+              onSurface: Colors.white,
             ),
+            child: Text('Apply'),
           ),
         ),
       ],

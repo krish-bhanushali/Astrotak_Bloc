@@ -6,6 +6,9 @@ import 'package:astrotak/app/data/models/location_model.dart';
 import 'package:astrotak/app/data/models/panchang_model.dart';
 import 'package:dio/dio.dart';
 
+///[AstroApiService] It is a basic least layer of our app that communicates
+///with outside world
+///consists of all the api calls we require
 class AstroApiService {
   static const baseUrl = 'https://www.astrotak.com';
 
@@ -15,6 +18,7 @@ class AstroApiService {
 
   static final String astrologerUrl = 'astroapi/api/agent/all';
 
+  ///[getAllAstrologers] fetchesAllAstrologers
   Future<CustomResponse<List<Astrologer>>> getAllAstrologers() async {
     try {
       final requestResponse =
@@ -29,6 +33,7 @@ class AstroApiService {
     }
   }
 
+  ///[searchLocation]  returns List of location from search queries
   Future<CustomResponse<List<Location>>> searchLocation(String query) async {
     try {
       Response response =
@@ -45,6 +50,7 @@ class AstroApiService {
     }
   }
 
+  ///[getPanchang]  returns Panchag
   Future<CustomResponse<Panchang>> getPanchang(
       String placeid, day, month, year) async {
     try {

@@ -83,7 +83,7 @@ class _TalkScreenState extends State<TalkScreen> {
               skillFilterToggle('astrology');
             },
             onTapVastu: () {
-              skillFilterToggle('vastu');
+              skillFilterToggle('Falit Jyotish');
             },
           ),
           SearchTextField(searchEditingController: searchEditingController),
@@ -169,16 +169,23 @@ class AstroUtilityRow extends StatelessWidget {
                   builder: (context, state) {
                     if (state is AstrologerBlocFilter) {
                       return FilterWidget(
-                        hindi: langFilter.contains('hindi') ? true : false,
-                        onTapHindi: onTapHindi,
-                        english: langFilter.contains('english') ? true : false,
-                        onTapEnglish: onTapEnglish,
-                        onTapastrology: onTapAstrologer,
-                        onTapvastu: onTapVastu,
-                        astrology:
-                            skillFilter.contains('astrology') ? true : false,
-                        vastu: skillFilter.contains('vastu') ? true : false,
-                      );
+                          hindi: langFilter.contains('hindi') ? true : false,
+                          onTapHindi: onTapHindi,
+                          english:
+                              langFilter.contains('english') ? true : false,
+                          onTapEnglish: onTapEnglish,
+                          onTapastrology: onTapAstrologer,
+                          onTapvastu: onTapVastu,
+                          astrology:
+                              skillFilter.contains('astrology') ? true : false,
+                          vastu: skillFilter.contains('Falit Jyotish')
+                              ? true
+                              : false,
+                          applyFilters: () {
+                            context
+                                .read<AstrologerblocBloc>()
+                                .add(FilterEvent(langFilter, skillFilter));
+                          });
                     }
                     return FilterWidget(
                         hindi: langFilter.contains('hindi') ? true : false,
@@ -189,7 +196,9 @@ class AstroUtilityRow extends StatelessWidget {
                         onTapvastu: onTapVastu,
                         astrology:
                             skillFilter.contains('astrology') ? true : false,
-                        vastu: skillFilter.contains('vastu') ? true : false,
+                        vastu: skillFilter.contains('Falit Jyotish')
+                            ? true
+                            : false,
                         applyFilters: () {
                           context
                               .read<AstrologerblocBloc>()
