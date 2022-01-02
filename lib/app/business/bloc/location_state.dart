@@ -48,8 +48,9 @@ class PanchangLoaded extends LocationState {
   final Panchang? panchang;
   final String? placeId;
   final DateTime? dateTime;
+  final String? placeName;
 
-  PanchangLoaded(this.panchang, this.placeId, this.dateTime);
+  PanchangLoaded(this.panchang, this.placeId, this.dateTime, this.placeName);
 
   @override
   // TODO: implement props

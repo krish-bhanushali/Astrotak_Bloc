@@ -12,6 +12,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
   final ApiRepository apiRepository;
   List<Location>? locations = [];
   Panchang? panchang;
+  Location? selectedLocation;
 
   LocationBloc({required this.apiRepository}) : super(PanchangInitial()) {
     on<LocationEvent>((event, emit) async {
@@ -40,6 +41,7 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
         }
       } else if (event is SelectedLocationEvent) {
         print('got here');
+        selectedLocation = event.location;
         emit(LocationSelected(location: event.location));
       } else if (event is FetchPanchang) {
         try {
@@ -54,8 +56,8 @@ class LocationBloc extends Bloc<LocationEvent, LocationState> {
           }
           panchang = response.data;
 
-          emit(PanchangLoaded(
-              panchang, event.placeId!, event.dateTimeofPanchang));
+          emit(PanchangLoaded(panchang, event.placeId!,
+              event.dateTimeofPanchang, selectedLocation!.placeName));
         } catch (e) {
           print(e);
           //add message later
