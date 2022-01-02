@@ -361,6 +361,20 @@ class _TalkScreenState extends State<TalkScreen> {
                     },
                   );
                 }
+                if (state is AstrologerBlocFilter) {
+                  print(state.filteredLogers.length);
+                  return ListView.separated(
+                    itemCount: state.filteredLogers.length,
+                    itemBuilder: (context, index) {
+                      return AstrologerTile(
+                        astrologer: state.filteredLogers[index],
+                      );
+                    },
+                    separatorBuilder: (BuildContext context, int index) {
+                      return Divider();
+                    },
+                  );
+                }
 
                 return Center(
                   child: CircularProgressIndicator(),

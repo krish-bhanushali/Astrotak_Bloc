@@ -111,10 +111,30 @@ class AstrologerblocBloc
 
           if (event.languageFilter!.isNotEmpty) {
             astrologer.languages.forEach((element) {
-              event.languageFilter!.forEach((element) {});
+              event.languageFilter!.forEach((filter) {
+                if (element.name.toLowerCase().contains(filter)) {
+                  isLanguage = true;
+                }
+              });
             });
           }
+          if (event.skills!.isNotEmpty) {
+            astrologer.skills.forEach((element) {
+              event.skills!.forEach((filter) {
+                if (element.name.toLowerCase().contains(filter)) {
+                  isSkill = true;
+                }
+              });
+            });
+          }
+          if (isSkill || isLanguage) {
+            return true;
+          } else {
+            return false;
+          }
         }).toList();
+
+        emit(AstrologerBlocFilter(filteredLogers: applyFilteredAstrologers!));
       }
     });
   }
