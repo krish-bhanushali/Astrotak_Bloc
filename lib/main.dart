@@ -1,7 +1,7 @@
 import 'package:astrotak/app/business/bloc/location_bloc.dart';
 import 'package:astrotak/app/data/repositories/api_repository.dart';
 import 'package:astrotak/app/services/api_service.dart';
-import 'package:astrotak/app/ui/views/navigation.dart';
+import 'package:astrotak/app/ui/views/Navigation/navigation.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
