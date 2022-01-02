@@ -1,0 +1,32 @@
+name: astrotak
+description: A new Flutter project.
+
+publish_to: "none"
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.14.0 <3.0.0"
+
+dependencies:
+  cupertino_icons: ^1.0.2
+  date_time_picker: ^2.1.0
+  dio: ^4.0.4
+  equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_typeahead: ^3.2.4
+  http: ^0.13.4
+  meta: ^1.7.0
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/
