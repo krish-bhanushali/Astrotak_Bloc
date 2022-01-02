@@ -198,6 +198,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 <!-- CONTACT -->
 ## Contact
 
+I solve doubts at Stack overflow -  [Ping Me whenever you need](https://stackoverflow.com/users/13220817/krish-bhanushali)
 Your Name - [@twitter_handle](https://twitter.com/krishbhanushal8) - bhanushali123krish@gmail.com
 
 Project Link: [https://github.com/krish-bhanushali/Astrotak_Bloc](https://github.com/krish-bhanushali/Astrotak_Bloc)
