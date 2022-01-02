@@ -46,7 +46,7 @@
 
   <p align="center">
     The journey of building this app was amazing and I learned a lot.
-   
+   </p>
     <br />
     <a href="https://github.com/krish-bhanushali/Astrotak_Bloc"><strong>Explore the docs »</strong></a>
     <br />
@@ -56,7 +56,7 @@
     <a href="https://github.com/krish-bhanushali/Astrotak_Bloc/issues">Report Bug</a>
     ·
     <a href="https://github.com/krish-bhanushali/Astrotak_Bloc/issues">Request Feature</a>
-  </p>
+ 
 </p>
 
 
