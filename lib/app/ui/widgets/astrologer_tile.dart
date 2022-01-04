@@ -1,6 +1,8 @@
 import 'package:astrotak/app/data/models/astrologer_model.dart';
 import 'package:astrotak/app/ui/values/color.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AstrologerTile extends StatelessWidget {
   const AstrologerTile({
@@ -20,9 +22,12 @@ class AstrologerTile extends StatelessWidget {
           Container(
             height: 100,
             width: 100,
-            child: Image.network(
-              astrologer.images!.medium.imageUrl ?? '',
+            child: CachedNetworkImage(
               fit: BoxFit.cover,
+              imageUrl: astrologer.images!.medium.imageUrl ?? '',
+              progressIndicatorBuilder: (context, url, downloadProgress) =>
+                  CircularProgressIndicator(value: downloadProgress.progress),
+              errorWidget: (context, url, error) => Icon(Icons.error),
             ),
           ),
           SizedBox(width: 10),
@@ -109,39 +114,42 @@ class AstrologerTile extends StatelessWidget {
                 SizedBox(
                   height: 10,
                 ),
-                Container(
-                  height: 38,
-                  width: 156,
-                  margin: EdgeInsets.only(left: 30),
-                  decoration: BoxDecoration(
-                    color: AppColors.primaryColor,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withOpacity(0.2),
-                        spreadRadius: 0.6,
-                        blurRadius: 3,
-                        offset: Offset(1, 1),
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(6),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(
-                        Icons.call_outlined,
-                        color: Colors.white,
-                        size: 24,
-                      ),
-                      SizedBox(width: 10),
-                      Text(
-                        'Talk on Call',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 14,
+                GestureDetector(
+                  onTap: () async {},
+                  child: Container(
+                    height: 38,
+                    width: 156,
+                    margin: EdgeInsets.only(left: 30),
+                    decoration: BoxDecoration(
+                      color: AppColors.primaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 0.6,
+                          blurRadius: 3,
+                          offset: Offset(1, 1),
                         ),
-                      ),
-                    ],
+                      ],
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.call_outlined,
+                          color: Colors.white,
+                          size: 24,
+                        ),
+                        SizedBox(width: 10),
+                        Text(
+                          'Talk on Call',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ],
