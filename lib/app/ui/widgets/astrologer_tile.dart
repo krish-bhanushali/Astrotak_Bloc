@@ -18,11 +18,11 @@ class AstrologerTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            height: 80,
-            width: 120,
+            height: 100,
+            width: 100,
             child: Image.network(
               astrologer.images!.medium.imageUrl ?? '',
-              fit: BoxFit.scaleDown,
+              fit: BoxFit.cover,
             ),
           ),
           SizedBox(width: 10),
@@ -44,12 +44,6 @@ class AstrologerTile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Text(
-                      '${astrologer.experience.toString().trim()} years',
-                      style: TextStyle(
-                        color: Colors.grey,
-                      ),
-                    )
                   ],
                 ),
                 SizedBox(height: 10),
@@ -116,8 +110,8 @@ class AstrologerTile extends StatelessWidget {
                   height: 10,
                 ),
                 Container(
-                  height: 48,
-                  width: 176,
+                  height: 38,
+                  width: 156,
                   margin: EdgeInsets.only(left: 30),
                   decoration: BoxDecoration(
                     color: AppColors.primaryColor,
@@ -153,6 +147,12 @@ class AstrologerTile extends StatelessWidget {
               ],
             ),
           ),
+          Text(
+            '${astrologer.experience.round().toString().trim()} years',
+            style: TextStyle(
+              color: Colors.grey,
+            ),
+          )
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:astrotak/app/ui/views/Navigation/fragments/Home%20Screen/widgets
 import 'package:astrotak/app/ui/views/Navigation/fragments/Home%20Screen/widgets/home_title_widget.dart';
 
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -41,40 +42,184 @@ class _HomeScreenState extends State<HomeScreen> {
               HomeTitleWidget(),
               SizedBox(height: 16),
               Container(
-                height: 166,
-                color: AppColors.lightOrange,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: kElevationToShadow[1],
+                    borderRadius: BorderRadius.circular(5.0)),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                    Container(
+                      height: 166,
+                      color: AppColors.lightOrange,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          SizedBox(
-                            width: 80,
-                            child: Text(
-                              'Date:',
-                              style: TextStyle(
-                                fontSize: 16,
-                              ),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 20.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                SizedBox(
+                                  width: 80,
+                                  child: Text(
+                                    'Date:',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                HomeDatePickerWidget(onChanged: (value) {
+                                  dateTime = DateTime.parse(value);
+                                })
+                              ],
                             ),
                           ),
-                          HomeDatePickerWidget(onChanged: (value) {
-                            dateTime = DateTime.parse(value);
-                          })
+                          HomeLocationTextField(
+                              searchEditingController: searchEditingController,
+                              dateTime: dateTime),
                         ],
                       ),
                     ),
-                    HomeLocationTextField(
-                        searchEditingController: searchEditingController,
-                        dateTime: dateTime),
+                    BlocBuilder<LocationBloc, LocationState>(
+                        builder: (context, state) {
+                      if (state is PanchangLoaded) {
+                        return PanchangRow(
+                          sunrise: 'sunrise',
+                          sunset: 'sunset',
+                          moonrise: 'moonrise',
+                          moonset: 'moonset',
+                          sunriseTime: state.panchang!.sunrise,
+                          sunsetTime: state.panchang!.sunset,
+                          moonriseTime: state.panchang!.moonrise,
+                          moonsetTime: state.panchang!.moonset,
+                        );
+                      }
+                      return Container();
+                    })
                   ],
                 ),
               ),
               HomeTithi()
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class PanchangRow extends StatelessWidget {
+  const PanchangRow({
+    Key? key,
+    required this.sunrise,
+    required this.sunset,
+    required this.sunriseTime,
+    required this.sunsetTime,
+    required this.moonrise,
+    required this.moonset,
+    required this.moonriseTime,
+    required this.moonsetTime,
+  }) : super(key: key);
+
+  final String sunrise;
+  final String sunset;
+  final String sunriseTime;
+  final String sunsetTime;
+  final String moonrise;
+  final String moonset;
+  final String moonriseTime;
+  final String moonsetTime;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 50.0,
+      child: IntrinsicHeight(
+        child: ListView(
+          scrollDirection: Axis.horizontal,
+          children: [
+            PanchangTime(
+              iconData: CupertinoIcons.sunrise,
+              titleText: sunrise,
+              subTitleText: sunriseTime,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 1, color: Colors.black54),
+            ),
+            PanchangTime(
+              iconData: CupertinoIcons.sunset,
+              titleText: sunset,
+              subTitleText: sunsetTime,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 1, color: Colors.black54),
+            ),
+            PanchangTime(
+              iconData: CupertinoIcons.moon,
+              titleText: moonrise,
+              subTitleText: moonriseTime,
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(width: 1, color: Colors.black54),
+            ),
+            PanchangTime(
+                iconData: CupertinoIcons.moon,
+                titleText: moonset,
+                subTitleText: moonsetTime),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class PanchangTime extends StatelessWidget {
+  const PanchangTime({
+    Key? key,
+    required this.iconData,
+    required this.titleText,
+    required this.subTitleText,
+  }) : super(key: key);
+
+  final IconData iconData;
+  final String titleText;
+  final String subTitleText;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Container(
+        child: Row(
+          children: [
+            Icon(
+              iconData,
+              color: AppColors.lightBlue,
+            ),
+            SizedBox(
+              width: 10.0,
+            ),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  titleText,
+                  style: TextStyle(
+                    fontSize: 10,
+                    color: AppColors.lightBlue,
+                  ),
+                ),
+                Text(
+                  subTitleText,
+                  style: TextStyle(fontSize: 12),
+                )
+              ],
+            )
+          ],
         ),
       ),
     );
