@@ -139,7 +139,6 @@ class AstrologerblocBloc
               event.languageFilter!.forEach((filter) {
                 if (element.name.toLowerCase().contains(filter.toLowerCase())) {
                   isLanguage = true;
-                  print('uyes');
                 }
               });
             });
@@ -153,7 +152,6 @@ class AstrologerblocBloc
               event.skills!.forEach((filter) {
                 if (element.name.toLowerCase().contains(filter.toLowerCase())) {
                   isSkill = true;
-                  print('byes');
                 }
               });
             });

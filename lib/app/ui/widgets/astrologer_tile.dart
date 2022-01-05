@@ -2,7 +2,6 @@ import 'package:astrotak/app/data/models/astrologer_model.dart';
 import 'package:astrotak/app/ui/values/color.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class AstrologerTile extends StatelessWidget {
   const AstrologerTile({
